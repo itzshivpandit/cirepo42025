@@ -21,12 +21,12 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                script {
-                    sh """
-                    cd cirepo42025
-                    docker build -t ${IMAGE_NAME} .
-                    """
+    steps {
+        script {
+            sh """
+            cd cirepo42025
+            sudo docker build -t ${IMAGE_NAME} .
+            """
                 }
             }
         }
