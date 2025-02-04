@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/itzshivpandit/cirepo42025.git'
-        BRANCH = 'main'  // Mentioning the Git branch explicitly
+        BRANCH = 'main'  
         APP_NAME = 'carvilla-site'
         CONTAINER_NAME = 'carvilla-container'
         SERVER_IP = '10.111.1.249'
@@ -16,8 +16,8 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    sh 'rm -rf cirepo42025 || true'  // Cleanup if the folder already exists
-                    sh "git clone -b ${BRANCH} ${REPO_URL}"  // Cloning from 'main' branch
+                    sh 'rm -rf cirepo42025 || true'
+                    sh "git clone -b ${BRANCH} ${REPO_URL}"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
-                    // Docker login and push to Docker Hub
+                    // Replace `dockerhub-credentials` with the correct ID of your credentials
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh """
                         echo $DOCKER_PASSWORD | sudo docker login -u $DOCKER_USERNAME --password-stdin
