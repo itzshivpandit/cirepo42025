@@ -14,7 +14,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    sh 'rm -rf 2025 || true'  // Cleanup if the folder already exists
+                    sh 'rm -rf cirepo42025 || true'  // Cleanup if the folder already exists
                     sh "git clone -b ${BRANCH} ${REPO_URL}"  // Cloning from 'main' branch
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    cd 2025
+                    cd cirepo42025
                     docker build -t ${IMAGE_NAME} .
                     """
                 }
