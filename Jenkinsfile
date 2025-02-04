@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'https://github.com/itzshivpandit/cirepo42025.git'
-        BRANCH = 'main'  // Mentioning the Git branch explicitly
+        BRANCH = 'main'
         APP_NAME = 'carvilla-site'
         CONTAINER_NAME = 'carvilla-container'
         SERVER_IP = '10.111.1.249'
@@ -14,9 +14,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    // Cleanup if the folder already exists
                     sh 'rm -rf cirepo42025 || true'
-                    // Cloning from 'main' branch
                     sh "git clone -b ${BRANCH} ${REPO_URL}"
                 }
             }
@@ -25,10 +23,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image without sudo
                     sh """
                     cd cirepo42025
-                    docker build -t ${IMAGE_NAME} .
+                    sudo docker build -t ${IMAGE_NAME} .
                     """
                 }
             }
@@ -37,10 +34,9 @@ pipeline {
         stage('Stop and Remove Old Container') {
             steps {
                 script {
-                    // Stop and remove old container if it exists
                     sh """
-                    docker stop ${CONTAINER_NAME} || true
-                    docker rm ${CONTAINER_NAME} || true
+                    sudo docker stop ${CONTAINER_NAME} || true
+                    sudo docker rm ${CONTAINER_NAME} || true
                     """
                 }
             }
@@ -49,9 +45,8 @@ pipeline {
         stage('Run New Container') {
             steps {
                 script {
-                    // Run new container
                     sh """
-                    docker run -d -p 8181:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}
+                    sudo docker run -d -p 8181:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}
                     """
                 }
             }
