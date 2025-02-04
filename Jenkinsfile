@@ -36,8 +36,8 @@ pipeline {
         stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
-                    // Replace `dockerhub-credentials` with the correct ID of your credentials
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    // Using the correct credentials ID: b71aacdb-5a16-4c8e-bd2b-99fd49410c01
+                    withCredentials([usernamePassword(credentialsId: 'b71aacdb-5a16-4c8e-bd2b-99fd49410c01', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh """
                         echo $DOCKER_PASSWORD | sudo docker login -u $DOCKER_USERNAME --password-stdin
                         sudo docker tag ${IMAGE_NAME} ${DOCKERHUB_REPO}:latest
