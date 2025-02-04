@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/itzshivpandit/2025.git'
+        REPO_URL = 'https://github.com/itzshivpandit/cirepo42025.git'
         BRANCH = 'main'  // Mentioning the Git branch explicitly
         APP_NAME = 'carvilla-site'
         CONTAINER_NAME = 'carvilla-container'
